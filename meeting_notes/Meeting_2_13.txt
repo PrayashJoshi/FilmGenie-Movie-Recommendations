@@ -1,0 +1,34 @@
+Agenda
+	1	Create a to-do list
+	2	Create a plan for part 1: Classification
+	3	Discussions
+	4	Plan for next meeting
+
+
+To-Do List
+Grant: Web Scraping IMDB comments, ratings and more from ratings page. 
+Ved: Web Scraping => exploring options: Selenium/Beautifulsoup using python
+Prayash : IMDB API, exploring SQL pipeline options, assisting with web scraping subteam. 
+Reagan: Start thinking about cleaning data. Consider SQL/CSV storage method
+
+
+Plan for Classification: 
+Planning to do sentiment analysis on user data. 
+Our current feature set consists of : Film, Year, Director, Actors, Writer(?), User, User Review, User Rating. 
+More details to come.
+
+
+Discussions
+	1	Getting data from approach: API vs. Web Scraping(Selenium vs. Beautifulsoup) 
+	2	Cleaning the data(figuring out a featureset)
+	3	SQL vs. CSV(advantages vs. disadvantages)
+	4	Ethics Discussion: Using user data on the IMDB
+	5	Discussing the IMDB API: Limitations due to restrictions selling user data, use cases, viable solution
+	6	Pulling more than we need vs. filtering out certain comments. 
+	7	Looking at more movies vs. looking at more comments per movie. 
+
+
+Next Meeting
+	1	Discuss findings
+	2	Make a decision on web scraping technique
+	3	More details for part 1: Classification
