@@ -5,7 +5,7 @@
 ### Contributions:
 - Grant Doan: Web-Scraping, Review preprocessing
 - Prayash Joshi: Website, Database
-- Reagan Orth: TF/IDF, NLP preprocessing
+- Reagan Orth: TF/IDF, Initial Model
 - Ved Patel: Web-Scraping
 
 ### Instructions:
