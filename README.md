@@ -1,5 +1,6 @@
-# ML_Movie_Recommendation
+# ML_Movie_Recommendation (Work in Progress)
 #### Authors: Grant Doan, Prayash Joshi, Reagan Orth, Ved Patel
+
 ## Milestone 1: Classification
 
 ### Contributions:
@@ -17,3 +18,8 @@ ex.  python.exe .\driver.py urls_pos_2.txt
 the website can be accessed at https://mlportal.netlify.app/
 populates a real-time database with a user's review
 
+## Milestone 2: Optimization
+
+## Milestone 3: Recommendation
+
+## Milestone 4: Deployment
