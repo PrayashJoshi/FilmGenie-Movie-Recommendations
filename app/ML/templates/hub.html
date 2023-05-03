@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+    <title>FilmGenie</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/content.css') }}">
+
+    <script type="module" src="{{ url_for('static',filename='js/content.js') }}"></script>
+
+    <link rel="shortcut icon" href="#">
+</head>
+{% block landing %}
+{% endblock landing %}
+
+<footer>
+    <div class="footer_container">
+      <div id="wayTop" class="logo"> <p>FILMGENIE </p></div>
+        <div class="social_media">
+ 
+            <a href="https://github.com/PrayashJoshi/Film_Genie" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+
+        </div>
+        <p>FilmGenie © 2023 All Rights Reserved.</p>
+      </div>
+  </footer>
+
+
+
+</html>

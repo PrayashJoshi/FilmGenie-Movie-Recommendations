@@ -1,0 +1,207 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>FilmGenie</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/content.css') }}">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
+    <script type="module" src="{{ url_for('static',filename='js/content.js') }}"></script>
+</head> -->
+{% extends "landing.html" %}
+
+{% block content %}
+<br></br>
+<section id="section1">
+    <br></br>
+
+</section>
+<section id="section1" class="content-section">
+    <h1>Data Preprocessing</h1>
+    <br></br>
+    <div id="text">
+        <p><small> Our data was scraped from the IMDb site. To clean this dataset, we fixed all of these
+                formatting issues, and
+                subsequently assigned each director, actor, and genre to an index in order to make a binary
+                matrix of 0s and 1s. We also added one feature for each decade, as individual years are far
+                sparser and do not tend to give us much additional information. We scraped through two datasets:
+            </small></p>
+
+        <br></br>
+        <div class="row" style="max-width: 100%;">
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+                    <h3>Movie Dataset</h3>
+                    <p><small> </small></p>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-5">
+                        <h3>Reviews Dataset</h3>
+                    </div>
+                </div>
+
+
+                <br></br>
+                <p><small> Our text pipeline consists of scraping IMDB reviews for movies each with the score that the
+                        user
+                        rated
+                        it with and passed through an object that removes HTML tags and other irrelevant pieces used for
+                        processing. For convenience, the data is passed as a text file of links, and the results after
+                        cleaning
+                        are put into a CSV. The webscraper saved review CSVs every 25 movies in order to combat dataloss
+                        if
+                        the
+                        webscraper timed out for whatever reason</small></p>
+            </div>
+</section>
+<section id="section2" class="content-section">
+    <br></br>
+    <h1>Sentiment Analysis</h1>
+    <div id="text">
+
+        <div class="row" style="max-width: 100%;">
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+                    <img src="../static/images/sentiment.png" alt="Image" class="img-fluid" style="max-width: 100%;">
+                </div>
+                <div class="col-md-7">
+                    <p><small>TFBertForSequenceClassifier is used with the label of either positive or negative yielding
+                            an accuracy of about 0.88 and a loss of about .2 using 3 training epochs, 600 steps each,
+                            and a batch size of 4. While this gave the overall sentiment of a review, we process the
+                            text even further attempting to find what sentiment is associated with using named entity
+                            recognition. This was performed by using genres provided by IMDB, common plot elements,
+                            IMDB's top 1000 movies, and special entities that are recognized by SpaCy's named entity
+                            recognizer in which positive reviews attempted to have their subjects extracted. </small>
+                    </p>
+                </div>
+            </div>
+            <p><small>This contributed an additional feature to the GNN recommendation model.</small></p>
+
+        </div>
+
+    </div>
+</section>
+
+<section id="section3" class="content-section">
+    <br></br>
+    <h1>GNN</h1>
+    <div id="text">
+        <div class="row" style="max-width: 100%;">
+            <p><small>In order to model the similarities between movies, we utilized a Graph Neural Network because of
+                    their strengths in modeling relationships between nodes. </small></p>
+            <br< /br>
+                <p><small> We used two SAGEConv layers in our model, and trained with a custom loss function designed to
+                        fit our purposes. We also used the Adam optimizer with the slow learning rate 0.0001 in order to
+                        ensure the model did not adjust too far with any given inputs. With respect to model
+                        performance, we unfortunately have no objective standard to measure against, as the similarity
+                        between movies is not objectively quantifiable. </small></p>
+
+                <br< /br>
+                    <div class="row justify-content-center">
+                        <div class="col-md-5">
+                            <p><small>However, we were able to use some metrics, such as testing films with sequels, as
+                                    well as films with similar elements/actors/directors/etc. in order to check
+                                    performance. For instance, when we check the most similar movie to one Lord of the
+                                    Rings movie, the other two always appear, indicating that our model does have a
+                                    capacity to understand similarity. The weights are exported to a CSV file for easy
+                                    access, which is used within the aggregation algorithms to provide the customized
+                                    recommendations to the user.</small></p>
+                        </div>
+                        <div class="col-md-5">
+                            <img src="../static/images/GNN.png" alt="Image" class="img-fluid" style="max-width: 100%;">
+                        </div>
+                    </div>
+        </div>
+
+
+
+    </div>
+
+    </div>
+</section>
+<section id="section4" class="content-section">
+    <br></br>
+    <h1> Application Pipeline</h1>
+    <div id="text">
+        <div class="row" style="max-width: 100%;">
+            <div class="row justify-content-center">
+                <div class="col-md-7">
+                    <img src="../static/images/pipeline.png" alt="Image" class="img-fluid" style="max-width: 100%;">
+                </div>
+                <div class="col-md-5">
+                    <p><small>The model trains on the movie dataset and review dataset seperately with the GNN and NLP
+                            using each one respectively. We've looked at points of interest in a given user review to be
+                            genre, possible mention of actors, and overall sentiment towards a given film. This is then
+                            processed an additional feature to the GNN recommendation model. </small></p>
+                </div>
+            </div>
+            <p><small>The webpage takes in online data which is fed into our pretrained NLP Bert model for possible
+                    sentiment analysis, based on the relevance and worth of a given user review. The usefull features
+                    are passed on the GNN which uses a similarity matrix to recommend a movie back to the user.</small>
+            </p>
+        </div>
+        <br></br>
+        <p><small>This app is built on a flask backend with a native html/css/js frontend. It contains a dockerfile and
+                list of required packages to build and deploy properly. Google's Cloud Build service is used to build
+                the docker image and Cloud Run is used to run the given image. </small></p>
+    </div>
+</section>
+<section id="section5" class="content-section">
+    <br></br>
+    <h1>Recommendation Module</h1>
+
+    <div id="recWindow" class="container-fluid d-flex justify-content-center align-items-center">
+        <div class="col-sm-4" style="border: 5px solid white; border-radius: 8px;" id="reviewDiv">
+            <h2>Movie Review Portal</h2>
+            <form id="myForm">
+                <div class="form-group">
+                    <label for="name">Username:</label>
+                    <input type="text" class="form-control" id="username"
+                        placeholder="Any Username(use the same one everytime)" name="username">
+                </div>
+                <div class="form-group">
+                    <label for="name">Title:</label>
+                    <input type="text" class="form-control" id="title" placeholder="Enter movie title" name="title">
+                </div>
+                <div class="form-group">
+                    <label for="sel1">Rating:</label>
+                    <select class="form-control" id="rating">
+                        <option>-</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="comment">Review:</label>
+                    <textarea class="form-control" rows="5" id="review"></textarea>
+                </div>
+                <button id="insert" type="button" class="btn btn-dark">Insert</button>
+                <button id="Done" type="button" class="btn btn-primary ms-auto">Generate</button>
+                <br></br>
+            </form>
+        </div>
+        <div class="col-sm-5" style="border: 1px solid gray; border-radius: 8px;" id="reviewDiv">
+            <h2>Your Entries(Minimum 2 Reviews): </h2>
+            <div id="reviewContainer" style="color: white;">
+                <p></p>
+            </div>
+        </div>
+    </div>
+    <br></br>
+
+</section>
+
+{% endblock content %}
+
+<!-- </body>
+
+</html> -->
